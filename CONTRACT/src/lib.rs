@@ -105,3 +105,6 @@ impl MalunggayPandesal {
             .unwrap()
     }
 }
+
+#[cfg(test)]
+mod test;
