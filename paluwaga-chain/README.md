@@ -22,6 +22,11 @@ paluwaga-chain/
       services/
       store/
     package.json
+  backend/
+    server.js
+    data/
+      groups.json
+    package.json
 ```
 
 ## Environment Variables (Frontend)
@@ -34,7 +39,26 @@ VITE_HORIZON_URL=https://horizon-testnet.stellar.org
 VITE_CONTRACT_ID=CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62
 VITE_USDC_ISSUER=<testnet_usdc_issuer>
 VITE_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
+VITE_GROUPS_API_BASE_URL=http://localhost:4000
 ```
+
+`VITE_GROUPS_API_BASE_URL` enables a shared groups backend so created groups appear for all users.
+
+## Shared Groups Backend
+
+Start the backend server before running the frontend:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Backend endpoints used by the app:
+
+- `GET /groups`
+- `POST /groups`
+- `POST /groups/:id/join`
 
 ## Contract Build and Deployment
 
