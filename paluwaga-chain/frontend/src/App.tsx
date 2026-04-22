@@ -28,6 +28,7 @@ const App = () => {
   const isDashboard = location.pathname === "/dashboard";
   const isGroupDetail = location.pathname.startsWith("/group/");
   const isAuth = location.pathname === "/auth";
+  const headerLabel = location.pathname === "/profile" ? "Profile" : location.pathname === "/create" ? "Create Group" : "Workspace";
 
   useEffect(() => {
     const firstOpenHandled = sessionStorage.getItem("paluwaga-first-open");
@@ -47,8 +48,16 @@ const App = () => {
       {!isHome && !isDashboard && !isGroupDetail && !isAuth && (
         <header className="sticky top-0 z-20 border-b border-white/60 bg-white/70 backdrop-blur-2xl">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
-            <Link to="/" className="font-headline text-2xl tracking-tight text-[#7c3aed]">
-              PaluwagaChain
+            <Link to="/" className="flex items-center gap-3">
+              <img
+                src="/PaluwagaChain_LogoPure.png"
+                alt="PaluwagaChain logo"
+                className="h-10 w-10 rounded-xl object-cover"
+              />
+              <div>
+                <p className="font-display text-lg font-extrabold text-slate-900">PaluwagaChain</p>
+                <p className="text-xs text-slate-500">{headerLabel}</p>
+              </div>
             </Link>
 
             <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">

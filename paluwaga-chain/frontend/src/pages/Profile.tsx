@@ -1,19 +1,26 @@
 import { useFreighter } from "../hooks/useFreighter";
 import { useGroupStore } from "../store/groupStore";
+import { useAuthStore } from "../store/authStore";
 
 const Profile = () => {
   const { publicKey, network, isConnected } = useFreighter();
   const { groups, contributionHistory } = useGroupStore();
+  const activeUser = useAuthStore((state) => state.activeUser);
 
   const totalContributed = contributionHistory.reduce((sum, entry) => sum + Number(entry.amount || 0), 0);
   const totalReceived = groups.reduce((sum, group) => sum + Number(group.poolBalance || 0), 0);
 
   return (
     <section className="mx-auto max-w-5xl space-y-4 rounded-[28px] bg-[linear-gradient(165deg,#f3e8ff_0%,#f8f5ff_45%,#ede9fe_100%)] px-4 py-6 text-slate-900 md:px-6">
-      <h1 className="font-display text-4xl font-extrabold">Profile</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-display text-4xl font-extrabold">Profile</h1>
+        {activeUser && <p className="text-lg font-semibold text-[#6d28d9]">{activeUser.name}</p>}
+      </div>
 
       <div className="glass-soft rounded-3xl p-6">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Wallet</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Account</p>
+        {activeUser && <p className="mt-2 text-sm text-slate-700"><span className="font-semibold">Email:</span> {activeUser.email}</p>}
+        <p className="mt-3 text-xs uppercase tracking-[0.18em] text-slate-500">Wallet</p>
         <p className="mt-2 text-sm text-slate-700">
           {isConnected ? publicKey : "No wallet connected"}
         </p>

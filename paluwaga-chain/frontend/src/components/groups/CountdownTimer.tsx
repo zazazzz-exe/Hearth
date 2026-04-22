@@ -26,9 +26,9 @@ const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
   }, [now, targetDate]);
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0A1628] p-4 text-center text-white">
-      <p className="text-xs uppercase tracking-[0.18em] text-white/55">Next Release In</p>
-      <p className="mt-2 font-mono text-2xl font-bold text-[#F5A623]">
+    <div className="rounded-2xl border border-[#c4b5fd] bg-[linear-gradient(145deg,#2a133f_0%,#3b1161_55%,#5b21b6_100%)] p-4 text-center text-white shadow-[0_14px_38px_rgba(59,17,97,0.35)]">
+      <p className="text-xs uppercase tracking-[0.18em] text-[#e9d5ff]">Next Release In</p>
+      <p className="mt-2 font-mono text-2xl font-bold text-[#f5d066]">
         {String(parts.days).padStart(2, "0")} : {String(parts.hours).padStart(2, "0")} : {String(parts.minutes).padStart(2, "0")}
       </p>
     </div>

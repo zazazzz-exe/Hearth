@@ -156,7 +156,7 @@ const GroupDetail = () => {
 
         <article className="glass-soft rounded-[20px] p-5">
           <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Pool Balance</p>
-          <p className="mt-3 text-4xl font-extrabold text-[#00C6FF]">USDC {poolBalance}</p>
+          <p className="mt-3 text-4xl font-extrabold text-[#6d28d9]">USDC {poolBalance}</p>
           <p className="mt-2 text-sm text-slate-600">Release unlocks when all members contribute.</p>
           <div className="mt-5">
             <CountdownTimer targetDate={new Date(Date.now() + 3 * 86400000 + 14 * 3600000).toISOString()} />
@@ -164,7 +164,7 @@ const GroupDetail = () => {
         </article>
       </div>
 
-      <article className="rounded-[24px] border border-white/10 bg-white p-4 text-[#0D1F3C] shadow-[0_25px_60px_rgba(0,0,0,0.18)]">
+      <article className="rounded-[24px] border border-purple-100 bg-white/85 p-4 text-[#2a133f] shadow-[0_20px_48px_rgba(124,58,237,0.14)]">
         <MemberList members={members} />
       </article>
 
@@ -214,7 +214,7 @@ const GroupDetail = () => {
                     <p className="font-semibold text-[#2a133f]">{entry.amount} {entry.asset || "XLM"} transferred</p>
                     <p className="mono mt-1 text-xs text-slate-500">{toShortAddress(entry.memberAddress)}</p>
                   </div>
-                  <a className="text-xs text-[#00C6FF] underline" href={`https://stellar.expert/explorer/testnet/tx/${entry.hash}`} target="_blank" rel="noreferrer">
+                  <a className="text-xs text-[#7c3aed] underline" href={`https://stellar.expert/explorer/testnet/tx/${entry.hash}`} target="_blank" rel="noreferrer">
                     View transaction
                   </a>
                 </div>

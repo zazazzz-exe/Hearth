@@ -42,7 +42,7 @@ const LandingPage = () => {
             <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="font-display text-[56px] font-extrabold leading-[1.05] md:text-[72px]">
               Your Paluwagan.
               <br />
-              <span className="bg-gradient-to-r from-[#00C6FF] to-[#6C3FC7] bg-clip-text text-transparent">Now Trustless.</span>
+              <span className="bg-gradient-to-r from-[#3F0F7F] to-[#A855F7] bg-clip-text text-transparent">Now Trustless.</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="max-w-2xl text-[18px] leading-relaxed text-slate-600">
               Pool funds with your group. Smart contracts hold the money. No one can run away.
@@ -66,30 +66,32 @@ const LandingPage = () => {
             </div>
           </div>
 
-          <div className="relative flex items-center justify-center">
-            <div className="absolute h-[520px] w-[520px] rounded-full border border-purple-100" />
-            <div className="absolute h-[360px] w-[360px] rounded-full border border-purple-100" />
-            {avatars.map((avatar, index) => {
-              const angle = (index / avatars.length) * Math.PI * 2 + rotationStep * 0.7;
-              const x = Math.cos(angle) * 130;
-              const y = Math.sin(angle) * 130;
-              const isCurrent = index === rotationStep % avatars.length;
-              return (
-                <button
-                  key={avatar}
-                  type="button"
-                  className={`absolute flex h-14 w-14 items-center justify-center rounded-full border text-sm font-bold transition-all ${isCurrent ? "pulse-glow border-[#F5A623] bg-[#F5A623] text-[#3F2200]" : "border-purple-100 bg-white text-[#6d28d9] shadow-[0_12px_32px_rgba(124,58,237,0.10)]"}`}
-                  style={{ transform: `translate(${x}px, ${y}px)` }}
-                  onClick={() => setRotationStep(index)}
-                >
-                  {avatar}
-                </button>
-              );
-            })}
-            <div className="glass-soft z-10 flex h-56 w-56 flex-col items-center justify-center rounded-full text-center">
+          <div className="relative flex h-[560px] w-[560px] items-center justify-center">
+            <div className="absolute inset-0 wheel-spin">
+              <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#3F0F7F]" />
+              <div className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#3F0F7F]" />
+              {avatars.map((avatar, index) => {
+                const angle = (index / avatars.length) * Math.PI * 2 + rotationStep * 0.7;
+                const x = Math.cos(angle) * 180;
+                const y = Math.sin(angle) * 180;
+                const isCurrent = index === rotationStep % avatars.length;
+                return (
+                  <button
+                    key={avatar}
+                    type="button"
+                    className={`absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-bold transition-all ${isCurrent ? "pulse-glow border-[#F5A623] bg-[#F5A623] text-[#3F2200]" : "border-purple-100 bg-white text-[#6d28d9] shadow-[0_12px_32px_rgba(124,58,237,0.10)]"}`}
+                    style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
+                    onClick={() => setRotationStep(index)}
+                  >
+                    {avatar}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="glass-soft relative z-10 flex h-56 w-56 flex-col items-center justify-center rounded-full text-center">
               <span className="material-symbols-outlined mb-2 text-4xl text-[#F5A623]">account_balance_wallet</span>
-              <p className="text-xs uppercase tracking-[0.2em] text-[#7c3aed]">Current Pool</p>
-              <p className="mt-2 text-3xl font-extrabold text-[#1f1637]">P1,250,000</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-[#3F0F7F]">Current Pool</p>
+              <p className="mt-2 text-3xl font-extrabold text-[#2a133f]">P725,000</p>
             </div>
           </div>
         </div>
@@ -170,24 +172,32 @@ const LandingPage = () => {
             <p className="mt-4 text-[18px] text-slate-600">A circular queue that makes the next recipient obvious and fair.</p>
           </SectionReveal>
           <div className="mx-auto mt-12 flex max-w-5xl flex-col items-center gap-6 rounded-[28px] border border-[#c084fc]/45 bg-[linear-gradient(140deg,#4c1d95_0%,#6d28d9_55%,#7e22ce_100%)] p-8 text-white shadow-[0_34px_100px_rgba(88,28,135,0.36)] backdrop-blur-2xl lg:flex-row lg:justify-between">
-            <div className="relative flex h-[360px] w-[360px] items-center justify-center wheel-spin">
-              <div className="absolute h-full w-full rounded-full border border-[#e9d5ff]/30 bg-[radial-gradient(circle,rgba(221,214,254,0.24),rgba(124,58,237,0.16)_58%,transparent_72%)]" />
-              <div className="absolute h-[82%] w-[82%] rounded-full border border-white/25" />
-              {avatars.map((avatar, index) => {
-                const angle = (index / avatars.length) * Math.PI * 2 + rotationStep * 0.7;
-                const x = Math.cos(angle) * 130;
-                const y = Math.sin(angle) * 130;
-                const isCurrent = index === rotationStep % avatars.length;
-                return (
-                  <button key={avatar} type="button" className={`absolute flex h-14 w-14 items-center justify-center rounded-full border text-sm font-bold transition-all ${isCurrent ? "pulse-glow border-[#f5d0fe] bg-[#f5d0fe] text-[#4a044e]" : "border-[#d8b4fe]/70 bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.25)]"}`} style={{ transform: `translate(${x}px, ${y}px)` }} onClick={() => setRotationStep(index)}>
-                    {avatar}
-                  </button>
-                );
-              })}
-              <div className="glass-panel flex h-40 w-40 flex-col items-center justify-center rounded-full border border-white/30 bg-white/20 text-center text-white shadow-[0_0_50px_rgba(245,208,254,0.20)]">
-                <p className="text-xs uppercase tracking-[0.2em] text-[#f5d0fe]">Pool Balance</p>
-                <p className="mt-2 text-3xl font-extrabold text-white">P1,250,000</p>
-                <p className="mono mt-2 text-xs text-[#f3e8ff]">Next Rotation in: 3 days 14 hours</p>
+            <div className="relative flex h-[360px] w-[360px] items-center justify-center">
+              <div className="absolute inset-0 wheel-spin">
+                <div className="absolute h-full w-full rounded-full border border-[#e9d5ff]/30 bg-[radial-gradient(circle,rgba(221,214,254,0.24),rgba(124,58,237,0.16)_58%,transparent_72%)]" />
+                <div className="absolute left-1/2 top-1/2 h-[82%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/25" />
+                {avatars.map((avatar, index) => {
+                  const angle = (index / avatars.length) * Math.PI * 2 + rotationStep * 0.7;
+                  const x = Math.cos(angle) * 130;
+                  const y = Math.sin(angle) * 130;
+                  const isCurrent = index === rotationStep % avatars.length;
+                  return (
+                    <button
+                      key={avatar}
+                      type="button"
+                      className={`absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-bold transition-all ${isCurrent ? "pulse-glow border-[#f5d0fe] bg-[#f5d0fe] text-[#4a044e]" : "border-[#d8b4fe]/70 bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.25)]"}`}
+                      style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
+                      onClick={() => setRotationStep(index)}
+                    >
+                      {avatar}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="glass-panel relative z-10 flex h-40 w-40 flex-col items-center justify-center rounded-full border border-white/30 bg-white/20 text-center text-white shadow-[0_0_50px_rgba(245,208,254,0.20)]">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#d9c6f2]">Pool Balance</p>
+                <p className="mt-2 text-3xl font-extrabold text-white">P725,000</p>
+                <p className="mono mt-2 text-xs text-[#e9d5ff]">Next Rotation in: 3 days 14 hours</p>
               </div>
             </div>
             <div className="max-w-xl text-left">
@@ -236,31 +246,31 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <footer className="bg-[#2a133f] px-6 py-16 text-white md:px-8">
+      <footer className="bg-[#2a133f] px-6 py-16 text-[#f5ebff] md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
           <div>
-            <div className="font-display text-2xl font-extrabold text-white">PaluwagaChain</div>
-            <p className="mt-4 text-sm text-white/70">Your group's money. Protected on-chain.</p>
+            <div className="font-display text-2xl font-extrabold text-[#f8f2ff]">PaluwagaChain</div>
+            <p className="mt-4 text-sm text-[#d9c6f2]">Your group's money. Protected on-chain.</p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-[#e9d5ff]">Product</p>
-            <ul className="mt-4 space-y-3 text-sm text-white/75">
-              <li><Link to="/create">Create Group</Link></li>
-              <li><Link to="/profile">Profile</Link></li>
+            <ul className="mt-4 space-y-3 text-sm text-[#d9c6f2]">
+              <li><Link className="hover:text-[#f8f2ff]" to="/create">Create Group</Link></li>
+              <li><Link className="hover:text-[#f8f2ff]" to="/profile">Profile</Link></li>
             </ul>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-[#e9d5ff]">Resources</p>
-            <ul className="mt-4 space-y-3 text-sm text-white/75">
-              <li><a href="#how-it-works">How it works</a></li>
-              <li><a href="#stats">Stats</a></li>
-              <li><a href="#features">Features</a></li>
+            <ul className="mt-4 space-y-3 text-sm text-[#d9c6f2]">
+              <li><a className="hover:text-[#f8f2ff]" href="#how-it-works">How it works</a></li>
+              <li><a className="hover:text-[#f8f2ff]" href="#stats">Stats</a></li>
+              <li><a className="hover:text-[#f8f2ff]" href="#features">Features</a></li>
             </ul>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-[#e9d5ff]">Social</p>
-            <p className="mt-4 text-sm text-white/75">Powered by Stellar Blockchain</p>
-            <p className="mt-2 text-sm text-white/75">MIT License | 2025 PaluwagaChain</p>
+            <p className="mt-4 text-sm text-[#d9c6f2]">Powered by Stellar Blockchain</p>
+            <p className="mt-2 text-sm text-[#d9c6f2]">MIT License | 2025 PaluwagaChain</p>
           </div>
         </div>
       </footer>

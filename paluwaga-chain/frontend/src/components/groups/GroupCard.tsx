@@ -24,12 +24,12 @@ const GroupCard = ({ group, currentUserId, onJoin, joinLoadingId }: GroupCardPro
   const isJoining = joinLoadingId === group.id;
 
   return (
-    <article className="rounded-[20px] border border-white/10 bg-white/5 p-5 text-white backdrop-blur-xl transition-transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+    <article className="rounded-[20px] border border-purple-100 bg-white/82 p-5 text-slate-800 backdrop-blur-xl transition-transform hover:-translate-y-1 hover:shadow-[0_20px_52px_rgba(124,58,237,0.16)]">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-white/45">Group</p>
-          <h3 className="mt-2 font-display text-[24px] font-extrabold text-white">{group.name}</h3>
-          {group.source === "created" && <p className="mt-1 text-xs text-white/50">Real-time created group</p>}
+          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Group</p>
+          <h3 className="mt-2 font-display text-[24px] font-extrabold text-[#2a133f]">{group.name}</h3>
+          {group.source === "created" && <p className="mt-1 text-xs text-slate-500">Real-time created group</p>}
         </div>
         <div className="flex flex-col items-end gap-2">
           <span className="rounded-full bg-[#F5A623] px-3 py-1 text-[11px] font-bold text-[#3F2200]">{status}</span>
@@ -38,27 +38,27 @@ const GroupCard = ({ group, currentUserId, onJoin, joinLoadingId }: GroupCardPro
       </div>
 
       <div className="mt-5 space-y-4">
-        <div className="h-2 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full rounded-full bg-gradient-to-r from-[#00C6FF] to-[#6C3FC7]" style={{ width: `${progress}%` }} />
+        <div className="h-2 overflow-hidden rounded-full bg-purple-100">
+          <div className="h-full rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#3F0F7F]" style={{ width: `${progress}%` }} />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 text-sm text-white/75">
+        <div className="grid grid-cols-2 gap-3 text-sm text-slate-600">
           <p>Your turn: #{group.yourTurn}</p>
           <p>Round {group.currentRound}</p>
-          <p className="text-[#00C6FF]">Pool: {group.poolBalance} USDC</p>
+          <p className="text-[#6d28d9]">Pool: {group.poolBalance} USDC</p>
           <p>Release: {new Date(group.nextReleaseAt).toLocaleDateString()}</p>
         </div>
 
         {group.source === "created" && (
-          <div className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-xs text-white/65">
+          <div className="flex items-center justify-between rounded-xl border border-purple-100 bg-white/75 px-4 py-3 text-xs text-slate-500">
             <span>Members Joined</span>
-            <span className="font-semibold text-white">{joinedCount}</span>
+            <span className="font-semibold text-[#2a133f]">{joinedCount}</span>
           </div>
         )}
 
-        <div className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-xs text-white/60">
+        <div className="flex items-center justify-between rounded-xl border border-purple-100 bg-white/75 px-4 py-3 text-xs text-slate-500">
           <span>Progress</span>
-          <span>{Math.round(progress)}% complete</span>
+          <span className="font-semibold text-[#2a133f]">{Math.round(progress)}% complete</span>
         </div>
 
         {canJoin && (

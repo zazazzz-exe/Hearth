@@ -27,16 +27,16 @@ const RotationTimeline = ({ members, currentIndex }: RotationTimelineProps) => {
   const normalizedMembers = Array.isArray(members) ? members.map(safeAddress) : [];
 
   return (
-    <div className="overflow-x-auto pb-2">
-      <div className="flex min-w-max items-center gap-3">
+    <div className="overflow-x-auto py-2">
+      <div className="flex min-w-max items-center gap-3 px-1">
         {normalizedMembers.map((member, index) => {
           const isCurrent = index === currentIndex;
           return (
             <div key={`${member}-${index}`} className="flex items-center gap-3">
               <div
-                className={`relative rounded-2xl border px-4 py-3 text-sm transition-all ${isCurrent ? "border-[#a855f7] bg-[#2a133f] text-white shadow-[0_0_24px_rgba(168,85,247,0.35)]" : "border-[#e9d5ff] bg-white text-slate-700 shadow-sm"}`}
+                className={`rounded-2xl border px-4 py-3 text-sm transition-all ${isCurrent ? "border-[#a855f7] bg-[#2a133f] text-white shadow-[0_0_24px_rgba(168,85,247,0.35)]" : "border-[#e9d5ff] bg-white text-slate-700 shadow-sm"}`}
               >
-                {isCurrent && <span className="absolute -top-2 right-3 rounded-full bg-[#f5d0fe] px-2 py-0.5 text-[10px] font-bold text-[#2a133f]">RECEIVING NOW</span>}
+                {isCurrent && <span className="mb-2 inline-flex rounded-full bg-[#f5d0fe] px-2 py-0.5 text-[10px] font-bold text-[#2a133f]">RECEIVING NOW</span>}
                 <p className="font-semibold">Turn {index + 1}</p>
                 <p className="mono text-xs">{compactAddress(member)}</p>
               </div>

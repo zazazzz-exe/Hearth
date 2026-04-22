@@ -83,7 +83,9 @@ const Dashboard = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleDisconnect = () => {
+    const { signOut } = useAuthStore.getState();
     disconnect();
+    signOut();
     navigate("/");
   };
 
@@ -189,9 +191,11 @@ const Dashboard = () => {
           }`}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-[#00C6FF] to-[#6C3FC7] text-sm font-extrabold">
-              P
-            </div>
+            <img
+              src="/PaluwagaChain_LogoPure.png"
+              alt="PaluwagaChain logo"
+              className="h-10 w-10 rounded-xl object-cover"
+            />
             <div>
               <p className="font-display text-lg font-extrabold">PaluwagaChain</p>
               <p className="text-xs text-slate-500">Dashboard</p>
