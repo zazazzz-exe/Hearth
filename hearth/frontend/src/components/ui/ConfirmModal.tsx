@@ -60,7 +60,7 @@ const ConfirmModal = ({
       <button
         type="button"
         aria-label="Close"
-        className="absolute inset-0 bg-wood/55 backdrop-blur-sm"
+        className="absolute inset-0 bg-wood/70 backdrop-blur-md"
         onClick={() => {
           if (!isSubmitting) {
             onCancel();
