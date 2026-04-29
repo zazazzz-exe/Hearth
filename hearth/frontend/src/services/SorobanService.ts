@@ -203,6 +203,66 @@ export class SorobanService {
     return submitted.hash;
   }
 
+  async getReceivedNativeTotal(publicKey: string): Promise<number> {
+    if (!publicKey) {
+      return 0;
+    }
+
+    const PAGE_LIMIT = 200;
+    const MAX_PAGES = 5;
+    let total = 0;
+    let cursor: string | undefined;
+
+    for (let page = 0; page < MAX_PAGES; page += 1) {
+      const builder = this.horizonServer
+        .payments()
+        .forAccount(publicKey)
+        .order("desc")
+        .limit(PAGE_LIMIT);
+      if (cursor) {
+        builder.cursor(cursor);
+      }
+
+      let res;
+      try {
+        res = await builder.call();
+      } catch (e) {
+        const status = (e as { response?: { status?: number } })?.response?.status;
+        if (status === 404) {
+          return 0;
+        }
+        throw e;
+      }
+
+      if (!res.records.length) {
+        break;
+      }
+
+      for (const record of res.records) {
+        const r = record as unknown as {
+          type: string;
+          asset_type?: string;
+          to?: string;
+          amount?: string;
+        };
+        if (r.type === "payment" && r.asset_type === "native" && r.to === publicKey) {
+          total += Number(r.amount) || 0;
+        }
+      }
+
+      if (res.records.length < PAGE_LIMIT) {
+        break;
+      }
+
+      cursor = String(res.records[res.records.length - 1].paging_token ?? "");
+      if (!cursor) {
+        break;
+      }
+    }
+
+    return total;
+  }
+
   async buildContributeTransaction(
     contractId: string,
     memberPublicKey: string,

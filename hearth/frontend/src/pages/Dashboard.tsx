@@ -1,13 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HearthCard from "../components/groups/HearthCard";
-import { useCountUp } from "../hooks/useCountUp";
 import { useFreighter } from "../hooks/useFreighter";
 import { useGroupState } from "../hooks/useGroupState";
 import { useInViewAnimation } from "../hooks/useInViewAnimation";
+import { useReceivedNative } from "../hooks/useReceivedNative";
 import { useGroupStore, GroupSummary } from "../store/groupStore";
 import { useAuthStore } from "../store/authStore";
 import { fetchSharedGroups, joinSharedGroup } from "../services/groupService";
+
+const formatXlm = (value: number): string => {
+  if (!Number.isFinite(value) || value <= 0) {
+    return "0";
+  }
+  if (value >= 1) {
+    return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  }
+  return value.toLocaleString(undefined, { maximumFractionDigits: 4 });
+};
 
 const toAddressString = (value: unknown): string => {
   if (typeof value === "string") return value;
@@ -76,7 +86,8 @@ const Dashboard = () => {
   const currentUserId = useAuthStore((state) => state.currentUserId);
   const { publicKey, disconnect } = useFreighter();
   const { data, isLoading, error } = useGroupState();
-  const { groups, upsertGroups } = useGroupStore();
+  const { groups, contributionHistory, upsertGroups } = useGroupStore();
+  const { data: receivedNative = 0 } = useReceivedNative(publicKey);
   const [activeTab, setActiveTab] = useState<"all" | "created">("all");
   const [sharedGroupsError, setSharedGroupsError] = useState<string | null>(null);
   const [joiningGroupId, setJoiningGroupId] = useState<string | null>(null);
@@ -178,8 +189,14 @@ const Dashboard = () => {
     return filtered;
   }, [groups, activeTab, currentUserId]);
 
-  const totalContributed = useCountUp(Number(data?.contribution_amount ?? 0) || 0, Boolean(data), 1200);
-  const totalReceived = useCountUp(Number(data?.pool_balance ?? 0) || 0, Boolean(data), 1200);
+  const totalTendedXlm = useMemo(() => {
+    if (!publicKey) {
+      return 0;
+    }
+    return contributionHistory
+      .filter((entry) => entry.memberAddress === publicKey && (entry.asset || "XLM") === "XLM")
+      .reduce((sum, entry) => sum + (Number(entry.amount) || 0), 0);
+  }, [contributionHistory, publicKey]);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(165deg,#FAF3E7_0%,#FFFBF2_45%,#F0E5D0_100%)] text-wood">
@@ -279,8 +296,8 @@ const Dashboard = () => {
 
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ["Tended", `USDC ${totalContributed}`],
-              ["Warmth received", `USDC ${totalReceived}`],
+              ["Tended", `${formatXlm(totalTendedXlm)} XLM`],
+              ["Warmth received", `${formatXlm(receivedNative)} XLM`],
               ["Active Hearths", String(visibleGroups.length)]
             ].map(([label, value]) => (
               <article key={label} className="glass-soft interactive-card p-5">

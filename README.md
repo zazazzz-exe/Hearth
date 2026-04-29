@@ -20,6 +20,23 @@ A Hearth is a circle of trust. Keepers tend the Hearth each Season, and warmth f
 
 ---
 
+## Deployed on Stellar Testnet
+
+The Hearth Soroban contract is live on Stellar Testnet.
+
+<p align="center">
+   <a href="https://stellar.expert/explorer/testnet/contract/CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62">
+      <img src="./deployed-contract.png" alt="Hearth contract on Stellar Expert (testnet)" width="820" />
+   </a>
+</p>
+
+- **Contract ID:** `CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62`
+- **Type:** WASM contract
+- **Network:** Stellar Testnet
+- **Explorer:** [View on Stellar Expert →](https://stellar.expert/explorer/testnet/contract/CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62)
+
+---
+
 ## Why Hearth
 
 Sending support across distance is fragile. Reminders get missed. Money sits in a sibling&rsquo;s account "for safekeeping." A relative forgets whose turn it is. The intent is warm; the mechanics are stressful.

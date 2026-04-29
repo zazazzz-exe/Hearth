@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFreighter } from "../../hooks/useFreighter";
 import { sorobanService } from "../../services/SorobanService";
 import { useGroupStore } from "../../store/groupStore";
@@ -13,6 +14,7 @@ interface ContributeButtonProps {
 
 const ContributeButton = ({ groupId, groupName, recipientAddress, amount, onSuccess }: ContributeButtonProps) => {
   const { publicKey } = useFreighter();
+  const queryClient = useQueryClient();
   const recordContribution = useGroupStore((state) => state.recordContribution);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,6 +44,14 @@ const ContributeButton = ({ groupId, groupName, recipientAddress, amount, onSucc
         hash,
         memberAddress: publicKey
       });
+
+      // Force any subscribed views (Dashboard cards, GroupDetail, Profile) to
+      // refetch on-chain + Horizon data immediately, instead of waiting for the
+      // next polling tick.
+      void queryClient.invalidateQueries({ queryKey: ["group-state"] });
+      void queryClient.invalidateQueries({ queryKey: ["received-native"] });
+      void queryClient.invalidateQueries({ queryKey: ["member-info"] });
+
       onSuccess(hash);
     } catch (e) {
       const message = e instanceof Error ? e.message : "Tending failed.";

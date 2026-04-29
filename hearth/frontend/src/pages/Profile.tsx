@@ -1,14 +1,33 @@
+import { useMemo } from "react";
 import { useFreighter } from "../hooks/useFreighter";
+import { useReceivedNative } from "../hooks/useReceivedNative";
 import { useGroupStore } from "../store/groupStore";
 import { useAuthStore } from "../store/authStore";
+
+const formatXlm = (value: number): string => {
+  if (!Number.isFinite(value) || value <= 0) {
+    return "0";
+  }
+  if (value >= 1) {
+    return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  }
+  return value.toLocaleString(undefined, { maximumFractionDigits: 4 });
+};
 
 const Profile = () => {
   const { publicKey, network, isConnected } = useFreighter();
   const { groups, contributionHistory } = useGroupStore();
   const activeUser = useAuthStore((state) => state.activeUser);
+  const { data: receivedNative = 0 } = useReceivedNative(publicKey);
 
-  const totalContributed = contributionHistory.reduce((sum, entry) => sum + Number(entry.amount || 0), 0);
-  const totalReceived = groups.reduce((sum, group) => sum + Number(group.poolBalance || 0), 0);
+  const totalTendedXlm = useMemo(() => {
+    if (!publicKey) {
+      return 0;
+    }
+    return contributionHistory
+      .filter((entry) => entry.memberAddress === publicKey && (entry.asset || "XLM") === "XLM")
+      .reduce((sum, entry) => sum + (Number(entry.amount) || 0), 0);
+  }, [contributionHistory, publicKey]);
 
   return (
     <section className="mx-auto max-w-5xl space-y-4 rounded-[28px] bg-[linear-gradient(165deg,#FAF3E7_0%,#FFFBF2_45%,#F0E5D0_100%)] px-4 py-6 text-wood md:px-6">
@@ -34,11 +53,11 @@ const Profile = () => {
         </article>
         <article className="glass-soft interactive-card p-4">
           <p className="text-xs uppercase tracking-[0.18em] text-wood-soft/70">Tended</p>
-          <p className="mt-2 font-display text-3xl font-bold text-amber">{totalContributed} USDC</p>
+          <p className="mt-2 font-display text-3xl font-bold text-amber">{formatXlm(totalTendedXlm)} XLM</p>
         </article>
         <article className="glass-soft interactive-card p-4">
           <p className="text-xs uppercase tracking-[0.18em] text-wood-soft/70">Warmth received</p>
-          <p className="mt-2 font-display text-3xl font-bold text-success">{totalReceived} USDC</p>
+          <p className="mt-2 font-display text-3xl font-bold text-success">{formatXlm(receivedNative)} XLM</p>
         </article>
       </div>
 
