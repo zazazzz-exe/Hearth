@@ -20,6 +20,44 @@ A Hearth is a circle of trust. Keepers tend the Hearth each Season, and warmth f
 
 ---
 
+## Demo & submission
+
+> Quick links for reviewers — everything the submission rubric asks for, in one place.
+
+### Live demo
+
+- **Deployed app:** **https://hearth-z.vercel.app/** — connect Freighter on Stellar Testnet and try a Tend.
+- **Walkthrough video:** [Google Drive](https://drive.google.com/file/d/1MAloQvvSBaIHofaOgiEBZ4ty7EgGPTXW/view?usp=sharing) — full feature tour.
+
+### Mobile responsive
+
+<p align="center">
+   <img src="./screenshots/mobile-responsive.png" alt="Hearth landing page on a phone" width="280" />
+</p>
+
+Captured on Android Chrome at 1080×2400 — hero, type ramp, and the flame→heart pulse all reflow cleanly without horizontal scroll.
+
+### CI/CD
+
+[![CI](https://github.com/zazazzz-exe/PaluwagaChain/actions/workflows/ci.yml/badge.svg)](https://github.com/zazazzz-exe/PaluwagaChain/actions/workflows/ci.yml)
+
+Runs on every push to `main` and on every PR: `npm ci` → `tsc -b` → `vite build` against `hearth/frontend`. Workflow lives at [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+### Contract addresses & transactions
+
+- **Hearth Soroban contract (Stellar Testnet):**
+  `CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62`
+  · [view on Stellar Expert ↗](https://stellar.expert/explorer/testnet/contract/CDVBVFHHBKV2NKOLMM3BCHJQTEIFBXJZ2DMH7SMT22RI3W3GHZJOBM62)
+- **Treasury / pool address:** the contract itself holds Tendings between Season releases — there is no separate pool account, and no inter-contract calls.
+- **Sample Tending transaction hash:** `8fe2ac574f8379a11b6fc10a6519a59bba022e19eb9cfa85c15910607febab18` · [view on Stellar Expert ↗](https://stellar.expert/explorer/testnet/tx/8fe2ac574f8379a11b6fc10a6519a59bba022e19eb9cfa85c15910607febab18)
+
+### Token / pool
+
+- **Asset used by the demo:** native **XLM** on Stellar Testnet — the simplified send flow uses `sendNativePayment`, signed by Freighter.
+- **No custom token deployed.** If you later switch settlements to USDC, set `VITE_USDC_ISSUER` in the frontend `.env` and list the issuer address here.
+
+---
+
 ## Deployed on Stellar Testnet
 
 The Hearth Soroban contract is live on Stellar Testnet.
